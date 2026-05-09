@@ -1,7 +1,7 @@
 model Store {
-  id                  Int     @id @default(autoincrement())
+  id                  String     @id @default(cuid())
   user                User    @relation(fields: [userId], references: [id])
-  userId              Int
+  userId              String
   contactPersonName   String
   storeName           String
   storeShortName      String?
@@ -10,7 +10,10 @@ model Store {
   businessEmail       String?
   addressLine1        String?
   addressLine2        String?
-  pincode             Int?
+  city                String?
+  state               String?
+  country             String?
+  pincode             String?
   gstin               String?
   licence             String?
 }

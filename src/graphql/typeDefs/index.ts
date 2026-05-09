@@ -1,14 +1,11 @@
+import { baseTypeDefs } from "./base";
+import { storeTypeDefs } from "./store";
 import { userTypeDefs } from "./user";
-// import { productTypeDefs } from "./product";
 
 export const typeDefs = `#graphql
+  ${baseTypeDefs}
 
-  type Query
-  type Mutation
+  ${userTypeDefs}
+
+  ${storeTypeDefs}
 `;
-
-export const allTypeDefs = [
-  typeDefs,
-  userTypeDefs,
-  // productTypeDefs
-];

@@ -4,6 +4,15 @@ export const userTypeDefs = `#graphql
     id: ID!
     name: String!
     email: String!
+    mobile: String!
+    password: String!
+    stores: [Store]
+  }
+
+  type AuthPayload {
+    accessToken: String!
+    refreshToken: String!
+    user: User!
   }
 
   extend type Query {
@@ -13,7 +22,19 @@ export const userTypeDefs = `#graphql
   extend type Mutation {
     createUser(
       name: String!,
-      email: String!
+      email: String!,
+      mobile: String!
+      password: String!
     ): User
+
+    updateUser(
+      id: ID!,
+      name: String!,
+      email: String!,
+      mobile: String!
+      password: String
+    ): User
+
+    loginUser(email: String!, password: String!): AuthPayload!
   }
 `;

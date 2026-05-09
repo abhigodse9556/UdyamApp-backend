@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -8,6 +10,7 @@ import { expressMiddleware } from "@as-integrations/express5";
 import { typeDefs } from "./graphql/typeDefs";
 import { resolvers } from "./graphql/resolvers";
 
+dotenv.config();
 async function startServer() {
   const app = express();
 
@@ -25,7 +28,7 @@ async function startServer() {
     expressMiddleware(server),
   );
 
-  app.listen(4000, () => {
+  app.listen(4000, "0.0.0.0", () => {
     console.log("Server running on port 4000");
   });
 }
