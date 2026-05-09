@@ -2,4 +2,6 @@ model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
+  mobile BigInt?
+  stores Store[]
 }

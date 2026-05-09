@@ -1,0 +1,16 @@
+model Store {
+  id                  Int     @id @default(autoincrement())
+  user                User    @relation(fields: [userId], references: [id])
+  userId              Int
+  contactPersonName   String
+  storeName           String
+  storeShortName      String?
+  phone               String  @unique
+  businessWhatsapp    String? @unique
+  businessEmail       String?
+  addressLine1        String?
+  addressLine2        String?
+  pincode             Int?
+  gstin               String?
+  licence             String?
+}
