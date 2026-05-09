@@ -23,7 +23,6 @@ export const userResolvers = {
 
   Mutation: {
     createUser: async (_: any, args: any) => {
-      console.log(args);
       const hashedPassword = await bcrypt.hash(args.password, 10);
       return prisma.user.create({
         data: {
