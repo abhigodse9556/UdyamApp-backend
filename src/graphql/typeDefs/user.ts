@@ -36,5 +36,9 @@ export const userTypeDefs = `#graphql
     ): User
 
     loginUser(email: String!, password: String!): AuthPayload!
+
+    refreshSession(
+      refreshToken: String!
+    ): AuthPayload!
   }
 `;

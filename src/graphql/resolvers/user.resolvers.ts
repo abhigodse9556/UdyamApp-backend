@@ -1,7 +1,8 @@
 import { prisma } from "../../../lib/prisma";
 import bcrypt from "bcrypt";
 import { loginUserService } from "../../services/auth.service";
-import { generateTokens } from "../../utils/jwt";
+import { generateTokens, verifyRefreshToken } from "../../utils/jwt";
+import { GraphQLError } from "graphql";
 
 export const userResolvers = {
   Query: {
@@ -51,6 +52,38 @@ export const userResolvers = {
         refreshToken: tokens.refreshToken,
         user,
       };
+    },
+
+    refreshSession: async (_: any, args: any) => {
+      try {
+        const payload = verifyRefreshToken(args.refreshToken) as {
+          userId: string;
+        };
+        const user = await prisma.user.findUnique({
+          where: {
+            id: payload.userId,
+          },
+        });
+        if (!user || !user.isActive) {
+          throw new GraphQLError("User not found or inactive", {
+            extensions: {
+              code: "NOT_FOUND",
+            },
+          });
+        }
+        const tokens = generateTokens(user.id);
+        return {
+          accessToken: tokens.accessToken,
+          refreshToken: tokens.refreshToken,
+          user,
+        };
+      } catch {
+        throw new GraphQLError("Session expired", {
+          extensions: {
+            code: "UNAUTHORIZED",
+          },
+        });
+      }
     },
   },
 };
