@@ -4,6 +4,7 @@ export const storeTypeDefs = `#graphql
     id: ID!
     userId: String!
     storeName: String!
+    storeCode: String
     storeShortName: String
     contactPersonName: String
     businessEmail: String

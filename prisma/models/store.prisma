@@ -1,12 +1,13 @@
 model Store {
   id                  String     @id @default(cuid())
-  user                User    @relation(fields: [userId], references: [id])
+  storeCode           String     @unique
+  user                User       @relation(fields: [userId], references: [id])
   userId              String
   contactPersonName   String
   storeName           String
   storeShortName      String?
-  phone               String  @unique
-  businessWhatsapp    String? @unique
+  phone               String     @unique
+  businessWhatsapp    String?    @unique
   businessEmail       String?
   addressLine1        String?
   addressLine2        String?

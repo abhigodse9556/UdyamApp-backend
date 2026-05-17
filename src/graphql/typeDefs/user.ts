@@ -48,5 +48,9 @@ export const userTypeDefs = `#graphql
     ): AuthPayload!
 
     logoutUser(refreshToken: String!): Boolean!
+
+    isUserNameAvailable(userName: String!): Boolean!
+    isEmailAvailable(email: String!): Boolean!
+    isMobileAvailable(mobile: String!): Boolean!
   }
 `;

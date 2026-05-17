@@ -1,4 +1,5 @@
 import { prisma } from "../../../lib/prisma";
+import { generateStoreCode } from "../../utils/codeGenerator";
 
 export const storeResolvers = {
   Query: {
@@ -9,8 +10,12 @@ export const storeResolvers = {
 
   Mutation: {
     createStore: async (_: any, args: any) => {
+      const storeCode = await generateStoreCode();
       return prisma.store.create({
-        data: args,
+        data: {
+          ...args,
+          storeCode,
+        },
       });
     },
 

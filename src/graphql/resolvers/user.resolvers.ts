@@ -1,11 +1,7 @@
 import { prisma } from "../../../lib/prisma";
 import bcrypt from "bcrypt";
 import { loginUserService } from "../../services/auth.service";
-import {
-  generateAccessToken,
-  generateTokens,
-  verifyRefreshToken,
-} from "../../utils/jwt";
+import { generateAccessToken, generateTokens } from "../../utils/jwt";
 import { GraphQLError } from "graphql";
 import { validateRefreshSession } from "../../services/auth.validateRefreshSession";
 
@@ -128,6 +124,33 @@ export const userResolvers = {
           },
         });
       }
+    },
+
+    isUserNameAvailable: async (_: any, args: any) => {
+      const existingUser = await prisma.user.findUnique({
+        where: {
+          userName: args.userName,
+        },
+      });
+      return !existingUser;
+    },
+
+    isEmailAvailable: async (_: any, args: any) => {
+      const existingUser = await prisma.user.findUnique({
+        where: {
+          email: args.email,
+        },
+      });
+      return !existingUser;
+    },
+
+    isMobileAvailable: async (_: any, args: any) => {
+      const existingUser = await prisma.user.findUnique({
+        where: {
+          mobile: args.mobile,
+        },
+      });
+      return !existingUser;
     },
   },
 };
