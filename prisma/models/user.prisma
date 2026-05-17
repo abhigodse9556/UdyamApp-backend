@@ -1,6 +1,7 @@
 model User {
   id            String     @id @default(cuid())
   email         String     @unique
+  userName      String     @unique
   name          String?
   mobile        String?
   stores        Store[]
@@ -8,4 +9,6 @@ model User {
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
   isActive      Boolean    @default(true)
+
+  refreshSessions RefreshSession[]
 }

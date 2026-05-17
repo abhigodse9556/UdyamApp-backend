@@ -25,11 +25,15 @@ async function startServer() {
     "/graphql",
     cors<cors.CorsRequest>(),
     bodyParser.json(),
-    expressMiddleware(server),
+    expressMiddleware(server, {
+      context: async ({ req }) => ({
+        req,
+      }),
+    }),
   );
 
   app.listen(4000, "0.0.0.0", () => {
-    console.log("Server running on port 4000");
+    console.info("Server running on port 4000");
   });
 }
 

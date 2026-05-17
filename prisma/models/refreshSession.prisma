@@ -1,0 +1,19 @@
+model RefreshSession {
+  id               String   @id @default(cuid())
+
+  user             User     @relation(fields: [userId], references: [id])
+  userId           String
+
+  tokenHash        String   @unique
+
+  deviceInfo       String?
+  ipAddress        String?
+
+  expiresAt        DateTime
+  revokedAt        DateTime?
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([userId])
+}

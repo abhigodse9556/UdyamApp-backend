@@ -4,8 +4,8 @@ export const userTypeDefs = `#graphql
     id: ID!
     name: String!
     email: String!
+    userName: String!
     mobile: String!
-    password: String!
     stores: [Store]
   }
 
@@ -13,6 +13,8 @@ export const userTypeDefs = `#graphql
     accessToken: String!
     refreshToken: String!
     user: User!
+    deviceInfo: String
+    ipAddress: String
   }
 
   extend type Query {
@@ -23,6 +25,7 @@ export const userTypeDefs = `#graphql
     createUser(
       name: String!,
       email: String!,
+      userName: String!,
       mobile: String!
       password: String!
     ): User
@@ -31,14 +34,19 @@ export const userTypeDefs = `#graphql
       id: ID!,
       name: String!,
       email: String!,
+      userName: String!,
       mobile: String!
       password: String
     ): User
 
-    loginUser(email: String!, password: String!): AuthPayload!
+    loginUser(emailOrUserName: String!, password: String!, deviceInfo: String, ipAddress: String): AuthPayload!
 
     refreshSession(
       refreshToken: String!
+      deviceInfo: String
+      ipAddress: String
     ): AuthPayload!
+
+    logoutUser(refreshToken: String!): Boolean!
   }
 `;
